@@ -5,6 +5,21 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 import json
 from math import pi
 from random import randint
+import os
+
+####
+# Parameters
+####
+# Credentials for CloudShell
+QSHost = "https://server.com:82"
+QSUn = "username"
+QSPw = "password"
+QSDom = "Global"
+SBID = "901b392d-3587-4e9d-bfaa-437b835145ac"
+# Where files are and to be stored
+WorkDir = "C:/temp"
+ExportFile = WorkDir + "/sandbox.fbx"
+ResourceTexturePath = WorkDir + "/resourcerect.png"
 
 #### 
 # CloudShell Stuff
@@ -22,13 +37,6 @@ def authRest(host, un, pw, dom):
         print ("Your authentication credentials to the server were bad")
         exit(1)
     return token
-
-# Credentials for CloudShell
-QSHost = "https://server.com:82"
-QSUn = "username"
-QSPw = "password"
-QSDom = "Global"
-SBID = "901b392d-3587-4e9d-bfaa-437b835145ac"
 
 # Authenticate and log get devices in sandbox
 token = authRest(QSHost, QSUn, QSPw, QSDom)
@@ -55,6 +63,48 @@ def makeMaterial(name, diffuse, specular, alpha):
     mat.alpha = alpha
     mat.ambient = 1
     return mat
+
+def wrapTexture():
+    # from https://wiki.blender.org/index.php/Dev:Py/Scripts/Cookbook/Code_snippets/Materials_and_textures#Textures
+    # Load image file. Change here if the snippet folder is 
+    # not located in you home directory.
+    realpath = os.path.expanduser(ResourceTexturePath)
+    try:
+        img = bpy.data.images.load(realpath)
+    except:
+        raise NameError("Cannot load image %s" % realpath)
+ 
+    # Create image texture from image
+    cTex = bpy.data.textures.new('ColorTex', type = 'IMAGE')
+    cTex.image = img
+ 
+ 
+    # Create material
+    mat = bpy.data.materials.new('TexMat')
+ 
+    # Add texture slot for color texture
+    mtex = mat.texture_slots.add()
+    mtex.texture = cTex
+    mtex.texture_coords = 'UV'
+    mtex.use_map_color_diffuse = True 
+    mtex.use_map_color_emission = True 
+    mtex.emission_color_factor = 0.5
+    mtex.use_map_density = True 
+    mtex.mapping = 'FLAT' 
+ 
+    # Create new cube and give it UVs
+    bpy.ops.mesh.primitive_plane_add()
+    bpy.ops.object.mode_set(mode='EDIT')
+    bpy.ops.uv.smart_project()
+    bpy.ops.object.mode_set(mode='OBJECT')
+ 
+    # Add material to current object
+    ob = bpy.context.object
+    ob.dimensions.x = 10
+    me = ob.data
+    me.materials.append(mat)
+ 
+    return ob
     
 def addText(txt):
     # right now just pick random numbers as a POC
@@ -62,26 +112,23 @@ def addText(txt):
     x = randint(1,50) # top to b
     y = 0 # depth
     z = randint(10,50) # l to r
-    red = makeMaterial('Red', (1,0,0), (1,1,1), 1)
-    blue = makeMaterial('Blue', (0,0,1), (1,1,1), 1)
+    textColor = makeMaterial('TextColor', (0,0,0), (1,1,1), 1)
 
     # first add the text and place it
     bpy.ops.object.text_add()
     textObject = bpy.context.active_object # the object just addded to the scene becomes the active object of the context
     textObject.data.body = txt
-    textObject.data.materials.append(red)
+    textObject.data.materials.append(textColor)
     bpy.ops.object.origin_set(type="ORIGIN_GEOMETRY") # set the origin (center of rotation) of the shape to it's geometric center
     textObject.rotation_euler[0] = pi / 2 #rotation euler is an array-like, [x,y,z], so this is 90 deg x axis rotation in radians!
-    textObject.location += Vector((x,y-2,z))
+    textObject.location += Vector((x-2,y-2,z))
 
-    # put a blue block behind it
-    bpy.ops.mesh.primitive_plane_add()
-    planeObject = bpy.context.active_object
-    planeObject.data.materials.append(blue)
+    # put a block behind it
+    planeObject = wrapTexture()
     planeObject.location += Vector((x,y,z))
     bpy.ops.object.origin_set(type="ORIGIN_GEOMETRY") # set the origin (center of rotation) of the shape to it's geometric center
     bpy.ops.object.mode_set(mode='EDIT')
-    bpy.ops.mesh.extrude_region_move(TRANSFORM_OT_translate={"value":(5, 0, 1)})
+    bpy.ops.mesh.extrude_region_move(TRANSFORM_OT_translate={"value":(0, 0, 1)})
     bpy.ops.object.mode_set(mode='OBJECT')
     planeObject.rotation_euler[0] = pi / 2 #rotation euler is an array-like, [x,y,z], so this is 90 deg x axis rotation in radians!
 
@@ -99,4 +146,4 @@ for component in sbrobj["components"]:
 
 # save it out
 bpy.context.scene.update() 
-bpy.ops.export_scene.fbx(filepath="C:/temp/sandbox.fbx", object_types={'OTHER','MESH','ARMATURE'}, bake_anim_use_nla_strips=False, bake_anim_use_all_actions=False) # following recommendations from SketchFab
+bpy.ops.export_scene.fbx(filepath=ExportFile, object_types={'OTHER','MESH','ARMATURE'}, bake_anim_use_nla_strips=False, bake_anim_use_all_actions=False) # following recommendations from SketchFab
