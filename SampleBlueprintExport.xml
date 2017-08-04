@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TopologyInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Details Name="Cyber Range" Alias="Cyber Range" Driver="Cyber Range Env" SetupDuration="5" TeardownDuration="5" Public="true" ImageName="Cyber Range.png" DefaultDuration="120">
+    <Description>A realistic environment used for security technology testing and development as well as cyber warfare training.</Description>
+    <Instructions>&lt;iframe src="/Instruction/Demos/CyberRange" scrolling="yes" frameborder="0" height="100%" width="100%"&gt;&lt;/iframe&gt;</Instructions>
+    <Categories>
+      <Category Name="Partner Enablement" SubCategory="SDN/NFV certification" />
+    </Categories>
+    <Scripts>
+      <Script Name="CyberRangeDeploy" />
+      <Script Name="PowerOn" />
+      <Script Name="HealthCheck" />
+    </Scripts>
+    <Diagram Zoom="0.9" NodeSize="Medium" />
+  </Details>
+  <Resources>
+    <Resource PositionX="591" PositionY="186" Name="SF-03" Shared="true">
+      <SubResources>
+        <Resource Name="Port1" Shared="true" />
+        <Resource Name="Port0" Shared="true" />
+        <Resource Name="Port2" Shared="true" />
+      </SubResources>
+    </Resource>
+    <Resource PositionX="899" PositionY="290" Name="MX-03" Shared="true">
+      <SubResources>
+        <Resource Name="Port0" Shared="true" />
+        <Resource Name="Port1" Shared="true" />
+        <Resource Name="Port3" Shared="true" />
+        <Resource Name="Port2" Shared="true" />
+        <Resource Name="Port4" Shared="true" />
+      </SubResources>
+    </Resource>
+    <Resource PositionX="899" PositionY="527" Name="Win-Serv03" Shared="true">
+      <SubResources>
+        <Resource Name="Ethernet Port" Shared="true" />
+      </SubResources>
+    </Resource>
+    <Resource PositionX="1593" PositionY="290" Name="SRX-03" Shared="true">
+      <SubResources>
+        <Resource Name="Port1" Shared="true" />
+        <Resource Name="Port0" Shared="true" />
+        <Resource Name="Port2" Shared="true" />
+      </SubResources>
+    </Resource>
+    <Resource PositionX="1593" PositionY="527" Name="Linux-Serv03" Shared="true">
+      <SubResources>
+        <Resource Name="Ethernet Port" Shared="true" />
+      </SubResources>
+    </Resource>
+    <Resource PositionX="359" PositionY="527" Name="Linux-Serv01" Shared="true">
+      <SubResources>
+        <Resource Name="Ethernet Port" Shared="true" />
+      </SubResources>
+    </Resource>
+    <Resource PositionX="1345" PositionY="15" Name="Snort-03" Shared="true">
+      <SubResources>
+        <Resource Name="Ethernet Port" Shared="true" />
+      </SubResources>
+    </Resource>
+    <Resource PositionX="65" PositionY="527" Name="Win-Serv01" Shared="true">
+      <SubResources>
+        <Resource Name="Ethernet Port" Shared="true" />
+      </SubResources>
+    </Resource>
+    <Resource PositionX="65" PositionY="14" Name="File Server" Shared="true" />
+    <Resource PositionX="847" PositionY="15" Name="Database Server" Shared="true">
+      <SubResources>
+        <Resource Name="Ethernet Port" Shared="true" />
+      </SubResources>
+    </Resource>
+    <Resource PositionX="1098" PositionY="15" Name="BreakingPoint VE-03" Shared="true">
+      <SubResources>
+        <Resource Name="Ethernet Port" Shared="true" />
+      </SubResources>
+    </Resource>
+    <Resource PositionX="899" PositionY="405.01136779785156" Name="vCenter Server" Shared="true">
+      <SubResources>
+        <Resource Name="Port013" Shared="true" />
+        <Resource Name="Port008" Shared="true" />
+        <Resource Name="Port009" Shared="true" />
+        <Resource Name="Port011" Shared="true" />
+        <Resource Name="Port012" Shared="true" />
+        <Resource Name="Port010" Shared="true" />
+        <Resource Name="Port014" Shared="true" />
+      </SubResources>
+    </Resource>
+    <Resource PositionX="317" PositionY="14" Name="Web Server" Shared="true">
+      <SubResources>
+        <Resource Name="Ethernet Port" Shared="true" />
+      </SubResources>
+    </Resource>
+    <Resource PositionX="1593" PositionY="15" Name="Malware Analyzer 03" Shared="true">
+      <SubResources>
+        <Resource Name="Ethernet Port" Shared="true" />
+      </SubResources>
+    </Resource>
+    <Resource PositionX="591" PositionY="350" Name="ASA-03" Shared="true">
+      <SubResources>
+        <Resource Name="Port1" Shared="true" />
+        <Resource Name="Port2" Shared="true" />
+        <Resource Name="Port0" Shared="true" />
+      </SubResources>
+    </Resource>
+    <Resource PositionX="566" PositionY="14" Name="Email Server" Shared="true">
+      <SubResources>
+        <Resource Name="Ethernet Port" Shared="true" />
+      </SubResources>
+    </Resource>
+  </Resources>
+  <Services>
+    <Service PositionX="219" PositionY="186" Alias="White Team" ServiceName="VLAN Auto">
+      <Attributes>
+        <Attribute Name="Pool Name" Value="" />
+        <Attribute Name="Allocation Ranges" Value="2-4094" />
+        <Attribute Name="Isolation Level" Value="Exclusive" />
+        <Attribute Name="Access Mode" Value="Access" />
+        <Attribute Name="VLAN ID" Value="" />
+        <Attribute Name="Virtual Network" Value="" />
+        <Attribute Name="QnQ" Value="False" />
+        <Attribute Name="CTag" Value="" />
+      </Attributes>
+    </Service>
+    <Service PositionX="1220" PositionY="405.01136779785156" Alias="Blue Team" ServiceName="VLAN Auto">
+      <Attributes>
+        <Attribute Name="Pool Name" Value="" />
+        <Attribute Name="Allocation Ranges" Value="2-4094" />
+        <Attribute Name="Isolation Level" Value="Exclusive" />
+        <Attribute Name="Access Mode" Value="Access" />
+        <Attribute Name="VLAN ID" Value="" />
+        <Attribute Name="Virtual Network" Value="" />
+        <Attribute Name="QnQ" Value="False" />
+        <Attribute Name="CTag" Value="" />
+      </Attributes>
+    </Service>
+    <Service PositionX="1330" PositionY="186" Alias="Admin VLAN" ServiceName="VLAN Auto">
+      <Attributes>
+        <Attribute Name="Pool Name" Value="" />
+        <Attribute Name="Allocation Ranges" Value="2-4094" />
+        <Attribute Name="Isolation Level" Value="Exclusive" />
+        <Attribute Name="Access Mode" Value="Access" />
+        <Attribute Name="VLAN ID" Value="" />
+        <Attribute Name="Virtual Network" Value="" />
+        <Attribute Name="QnQ" Value="False" />
+        <Attribute Name="CTag" Value="" />
+      </Attributes>
+    </Service>
+    <Service PositionX="219" PositionY="350" Alias="Red Team" ServiceName="VLAN Auto">
+      <Attributes>
+        <Attribute Name="Pool Name" Value="" />
+        <Attribute Name="Allocation Ranges" Value="2-4094" />
+        <Attribute Name="Isolation Level" Value="Exclusive" />
+        <Attribute Name="Access Mode" Value="Access" />
+        <Attribute Name="VLAN ID" Value="" />
+        <Attribute Name="Virtual Network" Value="" />
+        <Attribute Name="QnQ" Value="False" />
+        <Attribute Name="CTag" Value="" />
+      </Attributes>
+    </Service>
+  </Services>
+  <Apps />
+  <Routes>
+    <Route Source="MX-03/Port2" Target="SRX-03/Port0" MaxHops="2" Direction="Bi" Shared="true" />
+    <Route Source="MX-03/Port1" Target="ASA-03/Port0" MaxHops="2" Direction="Bi" Shared="true" />
+    <Route Source="MX-03/Port0" Target="SF-03/Port0" MaxHops="2" Direction="Bi" Shared="true" />
+    <Connector Source="MX-03/Port4" Target="Admin VLAN" Direction="Bi" TargetType="Service" />
+    <Connector Source="SF-03/Port2" Target="White Team" Direction="Bi" TargetType="Service" />
+    <Connector Source="ASA-03/Port2" Target="Red Team" Direction="Bi" TargetType="Service" />
+    <Connector Source="SRX-03/Port2" Target="Blue Team" Direction="Bi" TargetType="Service" />
+    <Connector Source="Red Team" Target="Linux-Serv01/Ethernet Port" Direction="Bi" SourceType="Service" />
+    <Connector Source="Red Team" Target="Win-Serv01/Ethernet Port" Direction="Bi" SourceType="Service" />
+    <Connector Source="Blue Team" Target="Win-Serv03/Ethernet Port" Direction="Bi" SourceType="Service" />
+    <Connector Source="Blue Team" Target="Linux-Serv03/Ethernet Port" Direction="Bi" SourceType="Service" />
+    <Connector Source="White Team" Target="File Server" Direction="Bi" SourceType="Service" />
+    <Connector Source="White Team" Target="Web Server/Ethernet Port" Direction="Bi" SourceType="Service" />
+    <Connector Source="White Team" Target="Email Server/Ethernet Port" Direction="Bi" SourceType="Service" />
+    <Connector Source="White Team" Target="Database Server/Ethernet Port" Direction="Bi" SourceType="Service" />
+    <Connector Source="Admin VLAN" Target="BreakingPoint VE-03/Ethernet Port" Direction="Bi" SourceType="Service" />
+    <Connector Source="Admin VLAN" Target="Snort-03/Ethernet Port" Direction="Bi" SourceType="Service" />
+    <Connector Source="Admin VLAN" Target="Malware Analyzer 03/Ethernet Port" Direction="Bi" SourceType="Service" />
+  </Routes>
+</TopologyInfo>
